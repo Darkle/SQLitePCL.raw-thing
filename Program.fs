@@ -1,5 +1,4 @@
 ﻿open Microsoft.Data.Sqlite
-open SQLitePCL
 
 
 [<Core.EntryPointAttribute>]
@@ -13,5 +12,14 @@ let main _ =
 
     let conn = sqLiteConnection.Handle
 
-    SQLitePCL.raw.sqlite3_trace (conn, delegate_trace (fun _ _ -> ()), null)
+    SQLitePCL.raw.sqlite3_trace (
+        conn,
+        SQLitePCL.delegate_trace (fun _ statement -> printfn "%A" (statement.utf8_to_string())),
+        null
+    )
+
+    let sqlCommand = sqLiteConnection.CreateCommand()
+    sqlCommand.CommandText <- "SELECT * FROM sqlite_master"
+    sqlCommand.ExecuteNonQuery() |> ignore
+
     0
