@@ -10,11 +10,9 @@ let main _ =
     let sqLiteConnection = new SqliteConnection(sqlConString.ConnectionString)
     sqLiteConnection.Open()
 
-    let conn = sqLiteConnection.Handle
-
     SQLitePCL.raw.sqlite3_trace (
-        conn,
-        SQLitePCL.delegate_trace (fun _ statement -> printfn "%A" (statement.utf8_to_string())),
+        sqLiteConnection.Handle,
+        SQLitePCL.delegate_trace (fun _ statement -> printfn "%A" (statement.utf8_to_string ())),
         null
     )
 

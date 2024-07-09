@@ -1,3 +1,3 @@
 # SQLitePCL.raw-thing
 
-Simple example using `SQLitePCL.raw.sqlite3_trace` with F#
+Simple example using `SQLitePCL.raw.sqlite3_trace` with Fsharp
